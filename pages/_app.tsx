@@ -1,4 +1,5 @@
 import 'tailwindcss/tailwind.css'
+import "nes.css/css/nes.min.css";
 
 function MyApp({ Component, pageProps }: any) {
   return <Component {...pageProps} />
