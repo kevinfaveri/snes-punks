@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { ethers } from 'ethers'
 import SNESPunks from '@/artifacts/contracts/SNESPunks.sol/SNESPunks.json'
 
-const snesPunksAddress = "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1"
+const snesPunksAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || ''
 
 export default function Home() {
   async function requestAccount() {

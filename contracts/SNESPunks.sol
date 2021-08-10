@@ -30,8 +30,8 @@ contract SNESPunks is ERC721, ERC721Enumerable {
     }
 
     function _baseURI() internal pure override returns (string memory) {
-        return "http://localhost:3000/api/";
-        // return "https://snes-punks/api/";
+        return "http://localhost:3000/api/punks/";
+        // return "https://snespunks.com/api/punks/";
     }
 
     constructor(string memory tokenName, string memory symbol)
@@ -42,8 +42,8 @@ contract SNESPunks is ERC721, ERC721Enumerable {
 
     function mintToken() public payable returns (uint256) {
         require(
-            _tokenIds.current() < 10,
-            "All 16 Bits Punks have been already minted :( Check them on OpenSea."
+            _tokenIds.current() < 10000,
+            "All SNES 16 Bits Punks have been already minted :( Check them on OpenSea."
         );
 
         require(msg.value == 0.03 * (10**18), "The Punks costs 0.03 ETH!");
