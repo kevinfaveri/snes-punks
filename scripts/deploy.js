@@ -8,17 +8,11 @@ async function main() {
     deployer.address
   );
 
-  const Greeter = await hre.ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, World!");
+  const NFTMinter = await hre.ethers.getContractFactory("SNESPunks");
+  const nftMinter = await NFTMinter.deploy("SNES Punks", "SNESP");
+  await nftMinter.deployed();
 
-  const Token = await hre.ethers.getContractFactory("KFToken");
-  const token = await Token.deploy("Kevin Faveri Token", "KFT");
-
-  await greeter.deployed();
-  await token.deployed();
-
-  console.log("Greeter deployed to:", greeter.address);
-  console.log("Token deployed to:", token.address);
+  console.log("SNESPunks deployed to:", nftMinter.address);
 }
 
 main()
