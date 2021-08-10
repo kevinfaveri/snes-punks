@@ -1,6 +1,6 @@
 {
-  "name": "16bits-punks",
-  "description": "16-Bit version of the normal 8-bit punks.",
+  "name": "snes-punks",
+  "description": "SNES inspired 16-bit version of the normal 8-bit Crypto Punks.",
   "private": true,
   "scripts": {
     "dev": "next dev",
