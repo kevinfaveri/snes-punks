@@ -7,7 +7,7 @@ const Gallery: React.FC = () => {
   const { punks, isEndReached, setRefInfiniteLoading } = usePunks()
   return <>
     <div className="text-center">
-      {punks.map((punk) => {
+      {punks.map((punk: any) => {
         return <PunkImage {...punk} key={punk.id} />
       })}
 

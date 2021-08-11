@@ -13,7 +13,7 @@ function useOnScreen(rootMargin = '0px') {
     )
 
     if (ref.current) {
-      observer.unobserve(ref.current)
+      observer.unobserve(ref.current as any)
     }
 
     if (node) {
