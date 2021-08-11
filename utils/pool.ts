@@ -11,3 +11,9 @@ const { snes_punks } = tables<DatabaseSchema>({
 });
 
 export const punksDb = snes_punks;
+
+process.once('SIGTERM', () => {
+  db.dispose().catch((ex) => {
+    console.error(ex);
+  });
+});

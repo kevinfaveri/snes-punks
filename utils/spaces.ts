@@ -10,14 +10,4 @@ const s3 = new AWS.S3({
 
 const spacesBucket = 'snes-16bit-punks'
 
-export const getSignedUrl = async (id) => {
-  const getSignedUrlQuery = {
-    Bucket: spacesBucket,
-    Key: `${id}.png`,
-    Expires: 300
-  }
-
-  const signedUrl = await s3.getSignedUrl('getObject', getSignedUrlQuery)
-  const signedCDNUrl = signedUrl.replace(`https://${spacesBucket}.nyc3`, `https://${spacesBucket}.nyc3.cdn`)
-  return signedCDNUrl
-}
+export const getImageUrl = async (id) => `https://${spacesBucket}.nyc3.cdn.digitaloceanspaces.com/${id}.png`

@@ -1,6 +1,5 @@
 import generateMetadata from "utils/generate-metadata"
 import { db, punksDb } from "utils/pool"
-import { getSignedUrl } from "utils/spaces"
 
 export default async function getSpecificPunk(req: any, res: any) {
   const { pid } = req.params

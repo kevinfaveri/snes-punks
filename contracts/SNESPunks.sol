@@ -56,4 +56,8 @@ contract SNESPunks is ERC721, ERC721Enumerable {
 
         return id;
     }
+
+    function getTotalMinted() public view returns (uint256) {
+        return _tokenIds.current();
+    }
 }

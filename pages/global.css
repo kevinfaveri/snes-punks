@@ -1,0 +1,8 @@
+html,
+body,
+#__next {
+  margin: 0;
+  height: 100%;
+  background-color: #648596;
+  font-family: 'Press Start 2P', cursive;
+}
