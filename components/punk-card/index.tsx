@@ -12,18 +12,14 @@ const PunkCard: React.FC = (punk: any) => {
     if (imageRef.current.complete) setLoadingImage(false)
   }, [])
 
-  return <div className="flex flex-col justify-center" style={{ width: `350px` }}>
+  return <div className="flex flex-col justify-center w-48 md:w-72">
     {!loadingImage ? null :
       <div
         className="animate-pulse flex 
         justify-center 
         align-middle 
         items-center
-        font-bold text-white text-xs uppercase bg-nftbg"
-        style={{
-          height: '350px',
-          width: '350px',
-        }}
+        font-bold text-white text-xs uppercase bg-nftbg w-48 md:w-72 h-48 md:h-72"
       >
         <span>Loading art...</span>
       </div>
@@ -33,14 +29,12 @@ const PunkCard: React.FC = (punk: any) => {
       ref={imageRef}
       src={punk.image}
       alt={punk.name}
-      width={350}
-      height={350}
-      className="rounded-t-md"
+      className="rounded-t-md w-48 md:w-72"
       onLoad={() => setLoadingImage(false)}
     />
 
     <div className="flex flex-col justify-center space-y-3 p-3 
-    font-bold bg-gray-200 rounded-md shadow-md text-sm text-nftbg">
+    font-bold bg-gray-200 rounded-md shadow-md text-xs text-nftbg">
       <span className="text-center">{punk.name}</span>
       <span className="text-center">{punk.description}</span>
     </div>

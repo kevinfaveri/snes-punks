@@ -13,18 +13,14 @@ const PunkImage: React.FC = (punk: any) => {
     setLoadingImage(true)
   }, [punk.id])
 
-  return <div className="inline-block p-5" style={{ width: `350px` }}>
+  return <div className="inline-block p-5 w-48 md:w-72">
     {!loadingImage ? null :
       <div
         className="animate-pulse flex 
         justify-center 
         align-middle 
         items-center
-        font-bold text-white text-xs uppercase bg-nftbg"
-        style={{
-          height: '350px',
-          width: '350px',
-        }}
+        font-bold text-white text-xs uppercase bg-nftbg w-48 md:w-72 h-48 md:h-72"
       >
         <span>Loading art...</span>
       </div>
@@ -34,9 +30,7 @@ const PunkImage: React.FC = (punk: any) => {
       src={isOnScreen ? punk.image : null}
       ref={setRef}
       alt={punk.name}
-      width={350}
-      height={350}
-      className="rounded-t-md cursor-pointer inline-block"
+      className="rounded-t-md cursor-pointer inline-block w-48 md:w-72"
       onClick={() => router.push(`/gallery/${punk.id}`)}
       onLoad={() => setLoadingImage(false)}
     />

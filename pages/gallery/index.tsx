@@ -6,7 +6,7 @@ import React from 'react';
 const Gallery: React.FC = () => {
   const { punks, isEndReached, setRefInfiniteLoading } = usePunks()
   return <>
-    <div className="">
+    <div className="text-center">
       {punks.map((punk) => {
         return <PunkImage {...punk} key={punk.id} />
       })}

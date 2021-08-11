@@ -2,9 +2,9 @@ import Header from '../header'
 
 export default function Layout({ children }) {
   return (
-    <>
+    <div className="h-full">
       <Header />
-      <main className="h-full pt-20">{children}</main>
-    </>
+      <main className="pt-20 h-full">{children}</main>
+    </div>
   )
 }
