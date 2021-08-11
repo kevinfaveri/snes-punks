@@ -31,7 +31,9 @@ export default function Mint() {
       for (var i = 0; i < balance.toNumber(); i++) {
         const token = await contract.tokenOfOwnerByIndex(account, i)
         const tokenId = token.toNumber()
-        console.log('You have the punk #' + tokenId)
+        const tokenURI = await contract.tokenURI(tokenId);
+        console.log(`You have the punk #${tokenId + 1}`)
+        console.log("tokenURI: ", tokenURI);
       }
     }
   }
@@ -41,8 +43,9 @@ export default function Mint() {
       const [account] = await window.ethereum.request({ method: 'eth_requestAccounts' })
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const contract = new ethers.Contract(snesPunksAddress, SNESPunks.abi, provider)
-      const tokenURI = await contract.tokenURI(1);
-      console.log("tokenURI: ", tokenURI);
+
+      const nextToBeMinted = await contract.getNextTokenIdToBeMinted()
+      console.log(`The next token to be minted will be #${nextToBeMinted.toNumber() + 1}`)
     }
   }
 

@@ -20,9 +20,8 @@ const PunkImage: React.FC = (punk: any) => {
         justify-center 
         align-middle 
         items-center
-        font-bold text-white text-xs uppercase"
+        font-bold text-white text-xs uppercase bg-nftbg"
         style={{
-          backgroundColor: `#${punk.background_color}`,
           height: '350px',
           width: '350px',
         }}
@@ -31,7 +30,7 @@ const PunkImage: React.FC = (punk: any) => {
       </div>
     }
     <img
-      style={!loadingImage ? undefined : { visibility: 'hidden' }}
+      style={!loadingImage ? {} : { position: 'absolute', visibility: 'hidden' }}
       src={isOnScreen ? punk.image : null}
       ref={setRef}
       alt={punk.name}

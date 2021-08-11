@@ -41,23 +41,27 @@ contract SNESPunks is ERC721, ERC721Enumerable {
     }
 
     function mintToken() public payable returns (uint256) {
+        uint256 id = _tokenIds.current();
+
         require(
-            _tokenIds.current() < 10000,
+            id < 9999,
             "All SNES 16-Bits Punks have been already minted :( Check them on OpenSea."
         );
 
-        require(msg.value == 0.03 * (10**18), "The Punks costs 0.03 ETH each!");
+        require(
+            msg.value == 0.03 * (10**18),
+            "The SNES Punks costs 0.03 ETH each!"
+        );
 
         payable(contractOwner).transfer(msg.value);
 
-        _tokenIds.increment();
-        uint256 id = _tokenIds.current();
         _safeMint(msg.sender, id);
+        _tokenIds.increment();
 
         return id;
     }
 
-    function getTotalMinted() public view returns (uint256) {
+    function getNextTokenIdToBeMinted() public view returns (uint256) {
         return _tokenIds.current();
     }
 }
