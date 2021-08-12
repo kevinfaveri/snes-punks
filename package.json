@@ -9,7 +9,7 @@
     "eth-node": "npx hardhat node",
     "eth-compile": "npx hardhat compile",
     "eth-deploy-local": "npx hardhat run scripts/deploy.js --network localhost",
-    "eth-deploy-testnet": "npx hardhat run scripts/deploy.js --network ropsten"
+    "eth-deploy-testnet": "npx hardhat run scripts/deploy.js --network rinkeby"
   },
   "dependencies": {
     "@databases/pg": "^5.1.0",
