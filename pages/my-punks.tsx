@@ -3,10 +3,12 @@ import { getBalance } from '@/utils/web3';
 import usePunks from 'hooks/usePunks';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
+import useSWR from 'swr';
 
 const MyPunks: React.FC = () => {
   const [tokenIds, setTokenIds] = useState<number[]>([])
-  const { punks, isLoadingMore } = usePunks()
+  const { data } = useSWR(`/api/punks?${tokenIds.map((id) => `ids=${id}&`).join('')}`)
+  const punks = data?.data || []
 
   useEffect(() => {
     if (typeof window.ethereum !== 'undefined') {
@@ -33,14 +35,14 @@ const MyPunks: React.FC = () => {
 
     </div>
     {
-      isLoadingMore &&
+      !data &&
       <div className="text-white font-bold text-sm mt-5 text-center animate-pulse">
         Loading punks...
       </div>
     }
 
     {
-      !isLoadingMore && tokenIds.length === 0 &&
+      data && punks.length === 0 && tokenIds.length === 0 &&
       <div className="text-white font-bold text-sm mt-5 pl-2 text-center">
         You do not own any SNES punks yet :(
       </div>
