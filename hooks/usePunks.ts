@@ -2,23 +2,25 @@ import { useEffect } from 'react'
 import useInfinitePagination from './useInfinitePagination'
 import useOnScreen from './useOnScreen'
 
-const getKey = (pageIndex, previousPageData) => {
+const getKey = (ids) => (pageIndex, previousPageData) => {
+  new URLSearchParams(ids).toString()
+
   if (previousPageData && !previousPageData.data.length) {
     return null
   }
 
-  if (pageIndex === 0) return `/api/punks`
+  if (pageIndex === 0) return `/api/punks?${ids.map((id) => `ids[]=${id}&`)}`
   return `/api/punks?cursor=${previousPageData.meta.cursor}`
 }
 
-export default function usePunks() {
+export default function usePunks(ids = []) {
   const {
     data,
     isEndReached,
     size,
     setSize,
     isLoadingMore,
-  } = useInfinitePagination(getKey, 500)
+  } = useInfinitePagination(getKey(ids), 500)
   const { isOnScreen, setRef } = useOnScreen('200px')
 
   useEffect(() => {

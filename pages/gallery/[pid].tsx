@@ -42,7 +42,7 @@ const PunkDetails: React.FC<any> = ({ punk }) => {
       </button>}
     </div>
     {isFirstAccess && <div
-      className="absolute top-20 left-2 font-bold text-white text-xs">
+      className="absolute top-20 left-5 font-bold text-white text-xs">
       TIP: You can edit the number in the URL replacing it in the range of the 10000 SNES 16-Bits Punks (0-9999)
     </div>}
 

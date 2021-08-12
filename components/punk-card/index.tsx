@@ -12,7 +12,7 @@ const PunkCard: React.FC = (punk: any) => {
     if (imageRef.current.complete) setLoadingImage(false)
   }, [])
 
-  return <div className="flex flex-col justify-center w-48 md:w-72">
+  return <div className="inline-block p-5 w-48 md:w-72">
     {!loadingImage ? null :
       <div
         className="animate-pulse flex 
