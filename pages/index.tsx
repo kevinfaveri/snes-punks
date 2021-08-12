@@ -15,6 +15,7 @@ export default function Home() {
 
       <div className="container px-1 text-center">
         This is an inclusive collection and all 10000 SNES (16-Bits) Punks will be priced at 0.02 ETH in the primary market to make it affordable for everyone to collect!
+        This value of the token, which is sent to the SNES Punks creator, will then be used for supporting improvements of the WebApp, mantaining cloud services operational and investing in community.
       </div>
 
       <div className="container px-1 text-center">

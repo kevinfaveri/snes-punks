@@ -23,15 +23,22 @@ const MyPunks: React.FC = () => {
       <title>SNES Punks - My Punks</title>
     </Head>
     <div>
-      {tokenIds.map((_, index) => {
+      {punks.length > 0 && tokenIds.map((_, index) => {
         const punk: any = punks[index]
         return <PunkCard {...punk} key={punk.id} />
       })}
 
     </div>
     {
+      punks.length === 0 && !isEndReached &&
+      <div className="text-white font-bold text-sm mt-5 text-center animate-pulse">
+        Loading punks...
+      </div>
+    }
+
+    {
       tokenIds.length === 0 && isEndReached &&
-      <div className="text-gray-700 font-bold text-sm mt-5">
+      <div className="text-white font-bold text-sm mt-5">
         You do not own any SNES punks yet :(
       </div>
     }

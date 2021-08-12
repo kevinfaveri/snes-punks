@@ -36,7 +36,6 @@ const PunkCard: React.FC = (punk: any) => {
     <div className="flex flex-col justify-center space-y-3 p-3 
     font-bold bg-gray-200 rounded-md shadow-md text-xs text-nftbg">
       <span className="text-center">{punk.name}</span>
-      <span className="text-center">{punk.description}</span>
     </div>
   </div>;
 }
