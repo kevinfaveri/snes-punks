@@ -7,8 +7,9 @@ import { requestAccount, switchEthereumChain } from '@/utils/web3';
 
 if (process.browser) {
   if (window.ethereum !== undefined) {
-    switchEthereumChain(window.ethereum)
-    requestAccount(window.ethereum)
+    switchEthereumChain(window.ethereum).then(() => {
+      requestAccount(window.ethereum)
+    })
   }
 }
 function MyApp({ Component, pageProps }: any) {
