@@ -27,7 +27,7 @@ const MyPunks: React.FC = () => {
           <PunkCard
             {...punk}
             key={punk.id}
-            shareMessage={`Just got my SNES Punk #${punk.id}!`} />
+            shareMessage={`Just got my SNES Punk #${punk.id + 1}!`} />
         </div>
       })}
 

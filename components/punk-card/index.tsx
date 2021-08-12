@@ -42,7 +42,7 @@ const PunkCard: React.FC = (punk: any) => {
       <span className="text-center">{punk.name}</span>
       <TwitterShareButton
         url={`https://snespunks.com/gallery/${punk.id}`}
-        title={punk.shareMessage || `I want my SNES Punk #${punk.id}!`}
+        title={punk.shareMessage || `I want my SNES Punk #${punk.id + 1}!`}
         via="SNESPunks"
         hashtags={['SNESPUNKS', 'NFT', 'CRYPTOPUNKS', 'ETHEREUM']}
         related={['SNESPunks', 'kevinfaveri_']}>
