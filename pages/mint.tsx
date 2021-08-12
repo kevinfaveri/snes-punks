@@ -1,82 +1,89 @@
 import Head from 'next/head'
-import { ethers } from 'ethers'
-import SNESPunks from '@/artifacts/contracts/SNESPunks.sol/SNESPunks.json'
+import { useEffect, useState } from 'react'
+import { requestAccount, mintPunk, getTransaction } from '@/utils/web3'
+import toast from 'react-hot-toast';
+import Link from 'next/link'
+import { useLocalStorage } from 'hooks/useLocalStorage';
 
-const snesPunksAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || ''
-
+const toastMinted = (id) => toast.success(
+  <Link href="/my-punks">
+    <a className="text-green-400 text-sm hover:text-green-400 
+      hover:underline block">
+      Token successfully minted, click here for checking it out!
+    </a>
+  </Link>, {
+  id,
+  duration: 10000,
+  position: 'top-right'
+})
 export default function Mint() {
-  async function requestAccount() {
-    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-    console.log(accounts)
-  }
+  const [transactionStack, setTransactionStack] = useLocalStorage('pendingTransactions', [])
+
+  useEffect(() => {
+    if (typeof window.ethereum !== 'undefined') {
+      transactionStack.forEach((transaction) => {
+        getTransaction(window.ethereum, transaction).then(() => {
+          const item = localStorage ? localStorage.getItem('pendingTransactions') : null;
+          const transactionStackUpdated = item ? JSON.parse(item) : [];
+          setTransactionStack(transactionStackUpdated.filter((txHash) =>
+            txHash !== transaction))
+          toastMinted(transaction)
+        })
+      })
+    }
+  }, [])
+
+
+  const [isLoading, setIsLoading] = useState<string | null>(null)
 
   async function mintToken() {
     if (typeof window.ethereum !== 'undefined') {
-      await requestAccount()
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner()
-      const contract = new ethers.Contract(snesPunksAddress, SNESPunks.abi, signer)
-      const transaction = await contract.mintToken({ value: ethers.utils.parseEther("0.03") })
-      await transaction.wait()
-    }
-  }
-
-  async function getBalance() {
-    if (typeof window.ethereum !== 'undefined') {
-      const [account] = await window.ethereum.request({ method: 'eth_requestAccounts' })
-      console.log(account)
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const contract = new ethers.Contract(snesPunksAddress, SNESPunks.abi, provider)
-      const balance = await contract.balanceOf(account);
-      for (var i = 0; i < balance.toNumber(); i++) {
-        const token = await contract.tokenOfOwnerByIndex(account, i)
-        const tokenId = token.toNumber()
-        const tokenURI = await contract.tokenURI(tokenId);
-        console.log(`You have the punk #${tokenId + 1}`)
-        console.log("tokenURI: ", tokenURI);
+      try {
+        setIsLoading('Minting, check the request on your wallet...')
+        await requestAccount(window.ethereum)
+        const transaction = await mintPunk(window.ethereum)
+        setTransactionStack([transaction.hash, ...transactionStack])
+        setIsLoading('Your token is being minted, please wait!')
+        const result = await transaction.wait()
+        toastMinted(transaction.hash)
+        setTransactionStack(transactionStack.filter((transaction) => transaction !== transaction.hash))
+        setIsLoading(null)
+      } catch (error) {
+        if (error.code !== 4001) {
+          toast.error(error.code)
+        }
+        setIsLoading(null)
       }
     }
   }
 
-  async function getTokenURI() {
-    if (typeof window.ethereum !== 'undefined') {
-      const [account] = await window.ethereum.request({ method: 'eth_requestAccounts' })
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const contract = new ethers.Contract(snesPunksAddress, SNESPunks.abi, provider)
-
-      const nextToBeMinted = await contract.getNextTokenIdToBeMinted()
-      console.log(`The next token to be minted will be #${nextToBeMinted.toNumber() + 1}`)
-    }
-  }
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div className="h-full flex flex-col items-center justify-center py-2">
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" type="image/png" href="/favicon.png" />
+        <title>SNES Punks - Mint</title>
       </Head>
 
-      <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
-        <div className="App">
-          <header className="flex flex-col space-y-5">
-            <button onClick={mintToken}>Mint Token</button>
-            <button onClick={getBalance}>Get Balance</button>
-            <button onClick={getTokenURI}>Get TokenURI</button>
-          </header>
-        </div>
-      </main>
+      <div className="flex flex-col items-center justify-center space-y-16 px-20 text-center font-bold text-white">
+        <img
+          className={isLoading ? 'cursor-auto' : 'cursor-pointer'}
+          onClick={isLoading ? () => null : mintToken}
+          src={isLoading ? '/eth.gif' : '/eth.png'}
+          width={160}
+          alt="ETH Loading" />
+        {isLoading ?
+          <span>{isLoading}</span> :
+          <button onClick={mintToken} className="hover:underline">Mint SNES Punk</button>}
 
-      <footer className="flex items-center justify-center w-full h-24 border-t">
-        <a
-          className="flex items-center justify-center"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="h-4 ml-2" />
-        </a>
-      </footer>
-    </div>
+        {transactionStack.map((transaction) =>
+          <a
+            key={transaction}
+            href={`${process.env.NEXT_PUBLIC_ETHERSCAN_BASE_URL}${transaction}`}
+            target="_blank" className="text-blue-300 text-sm hover:text-blue-300 
+              hover:underline block">
+            [PENDING TRANSACTION] Click here for details!
+          </a>
+        )}
+      </div>
+    </div >
   )
 }

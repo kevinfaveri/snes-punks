@@ -3,7 +3,7 @@ import DatabaseSchema, { serializeValue } from "__generated__";
 
 const createConnectionPool = require('@databases/pg');
 export const db = createConnectionPool(
-  process.env.DATABASE_CONNECTION_STRING,
+  process.env.DATABASE_CONNECTION_STRING, { bigIntMode: 'bigint' }
 );
 
 const { snes_punks } = tables<DatabaseSchema>({

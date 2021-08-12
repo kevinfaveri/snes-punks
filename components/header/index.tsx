@@ -34,6 +34,24 @@ const Header: React.FC = () => {
           <div className="h-10 flex items-center">Gallery</div>
         </button>
       </li>
+      <li className="mr-6">
+        <button
+          type="button"
+          className="flex px-2 rounded-lg transition hover:text-white hover:bg-nftbg"
+          onClick={() => router.push('/mint')}>
+          <img src="/monkey_nft.png" className="h-10" />
+          <div className="h-10 flex items-center">Mint</div>
+        </button>
+      </li>
+      <li className="mr-6">
+        <button
+          type="button"
+          className="flex px-2 rounded-lg transition hover:text-white hover:bg-nftbg"
+          onClick={() => router.push('/my-punks')}>
+          <img src="/alien_nft.png" className="h-10" />
+          <div className="h-10 flex items-center">My Punks</div>
+        </button>
+      </li>
     </ul>
   </header>;
 }

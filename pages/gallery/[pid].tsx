@@ -4,6 +4,7 @@ import generateMetadata from 'utils/generate-metadata';
 import PunkCard from '@/components/punk-card';
 import { useRouter } from 'next/router'
 import { useState } from 'react';
+import Head from 'next/head';
 
 const PunkDetails: React.FC<any> = ({ punk }) => {
   const [isFirstAccess, setIsFirstAccess] = useState(true)
@@ -12,6 +13,9 @@ const PunkDetails: React.FC<any> = ({ punk }) => {
   const pidNumber = Number(pid)
 
   return <div className="grid grid-cols-4 gap-4 justify-center items-center h-full">
+    <Head>
+      <title>SNES Punk #{pid}</title>
+    </Head>
     <div className="col-span-1 flex justify-end">
       {pidNumber !== 0 && <button
         type="button"

@@ -6,5 +6,5 @@ export default async function getSpecificPunk(req: any, res: any) {
   const punk: any = await punksDb(db).findOne({ id: pid }) || {}
   const data = await generateMetadata(punk)
 
-  res.status(200).json({ data })
+  res.status(200).json(data)
 }

@@ -1,11 +1,15 @@
 import PunkImage from '@/components/punk-image';
 import usePunks from 'hooks/usePunks';
+import Head from 'next/head';
 import React from 'react';
 
 
 const Gallery: React.FC = () => {
   const { punks, isEndReached, setRefInfiniteLoading } = usePunks()
   return <>
+    <Head>
+      <title>SNES Punks - Gallery</title>
+    </Head>
     <div className="text-center">
       {punks.map((punk: any) => {
         return <PunkImage {...punk} key={punk.id} />

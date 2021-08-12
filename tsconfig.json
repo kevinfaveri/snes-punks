@@ -25,6 +25,9 @@
       ],
       "@/artifacts/*": [
         "artifacts/*"
+      ],
+      "@/utils/*": [
+        "utils/*"
       ]
     }
   },

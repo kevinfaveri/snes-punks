@@ -38,7 +38,7 @@ const PunkCard: React.FC = (punk: any) => {
       <span className="text-center">{punk.name}</span>
       <span className="text-center">{punk.description}</span>
     </div>
-  </div >;
+  </div>;
 }
 
 export default PunkCard;
