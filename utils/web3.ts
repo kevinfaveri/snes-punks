@@ -2,6 +2,13 @@ import { ethers } from 'ethers'
 import SNESPunks from '@/artifacts/contracts/SNESPunks.sol/SNESPunks.json'
 const snesPunksAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || ''
 
+export async function switchEthereumChain(ethereum) {
+  return await ethereum.request({
+    method: "wallet_switchEthereumChain",
+    params: [{ chainId: '0x4' }],
+  });
+}
+
 export async function requestAccount(ethereum) {
   const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
   return accounts
