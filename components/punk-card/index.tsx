@@ -1,6 +1,10 @@
 import React, { useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import {
+  TelegramShareButton,
+  TwitterShareButton,
+} from "react-share";
 
 const PunkCard: React.FC = (punk: any) => {
   const [loadingImage, setLoadingImage] = useState(true);
@@ -36,6 +40,19 @@ const PunkCard: React.FC = (punk: any) => {
     <div className="flex flex-col justify-center space-y-3 p-3 
     font-bold bg-gray-200 rounded-md shadow-md text-xs text-nftbg">
       <span className="text-center">{punk.name}</span>
+      <TwitterShareButton
+        url={`https://snespunks.com/gallery/${punk.id}`}
+        title={punk.shareMessage || `I want my SNES Punk #${punk.id}!`}
+        via="SNESPunks"
+        hashtags={['SNESPUNKS', 'NFT', 'CRYPTOPUNKS', 'ETHEREUM']}
+        related={['SNESPunks', 'kevinfaveri_']}>
+        <span className="text-xss md:text-xs text-blue-300">SHARE ON TWITTER</span>
+      </TwitterShareButton>
+      <TelegramShareButton
+        url={`https://snespunks.com/gallery/${punk.id}`}
+        title={punk.shareMessage || `I want my SNES Punk #${punk.id}!`}>
+        <span className="text-xss md:text-xs text-blue-300">SHARE ON TELEGRAM</span>
+      </TelegramShareButton>
     </div>
   </div>;
 }

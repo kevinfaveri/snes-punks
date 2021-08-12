@@ -6,6 +6,9 @@ module.exports = {
     extend: {
       colors: {
         nftbg: '#648596'
+      },
+      fontSize: {
+        xss: '0.6rem'
       }
     },
   },

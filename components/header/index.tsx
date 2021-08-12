@@ -6,7 +6,7 @@ import { NextSeo } from 'next-seo';
 const Header: React.FC = () => {
   const router = useRouter()
 
-  return <header>
+  return <header className="flex justify-center">
     <NextSeo
       title="SNES Punks"
       description="The SNES (16-Bits) Punks are conversions of the 10000 original punks inspired by 16-Bits art style by an AI."
@@ -37,8 +37,9 @@ const Header: React.FC = () => {
       <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
     </Head>
 
-    <ul className="absolute flex rounded-br-md 
-    shadow-md bg-white py-2 text-nftbg h-14">
+    <ul className="flex rounded-b-md 
+    shadow-md bg-white py-2 px-1 text-nftbg h-14
+    text-xs md:text-sm">
       <li className="mr-6">
         <button
           type="button"
@@ -66,7 +67,7 @@ const Header: React.FC = () => {
           <div className="h-10 flex items-center">Mint</div>
         </button>
       </li>
-      <li className="mr-6">
+      <li>
         <button
           type="button"
           className="flex px-2 rounded-lg transition hover:text-white hover:bg-nftbg"

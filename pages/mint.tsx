@@ -14,7 +14,7 @@ const toastMinted = (id) => toast.success(
   </Link>, {
   id,
   duration: 10000,
-  position: 'top-right'
+  position: 'bottom-center'
 })
 export default function Mint() {
   const [transactionStack, setTransactionStack] = useLocalStorage('pendingTransactions', [])
@@ -58,12 +58,12 @@ export default function Mint() {
   }
 
   return (
-    <div className="h-full flex flex-col items-center justify-center py-2">
+    <div className="h-full flex flex-col justify-center py-2">
       <Head>
         <title>SNES Punks - Mint</title>
       </Head>
 
-      <div className="flex flex-col items-center justify-center space-y-16 px-20 text-center font-bold text-white">
+      <div className="flex flex-col items-center space-y-16 px-20 text-center font-bold text-white">
         <img
           className={isLoading ? 'cursor-auto' : 'cursor-pointer'}
           onClick={isLoading ? () => null : mintToken}
@@ -78,7 +78,7 @@ export default function Mint() {
               className="hover:underline">
               Mint SNES Punk (0.02 ETH)
             </button>
-            {!window?.ethereum && <span>You need Metamask installed for this to work!</span>}
+            {process.browser && !window?.ethereum && <span>You need Metamask installed for this to work!</span>}
           </div>}
 
         {transactionStack.map((transaction) =>

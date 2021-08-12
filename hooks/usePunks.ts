@@ -32,5 +32,5 @@ export default function usePunks(ids = []) {
     punks = punks.concat(punkList)
   })
 
-  return { punks, isEndReached, setRefInfiniteLoading: setRef }
+  return { punks, isEndReached, setRefInfiniteLoading: setRef, isLoadingMore }
 }

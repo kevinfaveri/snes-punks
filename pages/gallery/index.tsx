@@ -10,7 +10,7 @@ const Gallery: React.FC = () => {
     <Head>
       <title>SNES Punks - Gallery</title>
     </Head>
-    <div>
+    <div className="flex flex-wrap justify-center">
       {punks.map((punk: any) => {
         return <PunkImage {...punk} key={punk.id} />
       })}
