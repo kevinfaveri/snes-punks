@@ -27,6 +27,10 @@ module.exports = {
     rinkeby: {
       url: "https://rinkeby.infura.io/v3/055a0d947f5042e4bc5f3ce8d588b8ee",
       accounts: [`0x${process.env.CONTRACT_OWNER_PK}`]
+    },
+    mainnet: {
+      url: "https://mainnet.infura.io/v3/055a0d947f5042e4bc5f3ce8d588b8ee",
+      accounts: [`0x${process.env.CONTRACT_OWNER_PK}`]
     }
   }
 };
