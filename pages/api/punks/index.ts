@@ -11,6 +11,7 @@ export default async function getPunks(req: any, res: any) {
     })
     .orderByAsc(`id`)
     .limit(500) : await punksDb(db).find({ id: ids }).orderByAsc(`id`).all() as any
+  await db.dispose()
   const data: any[] = []
   for (let index = 0; index < punks.length; index++) {
     const dataToAdd = await generateMetadata(punks[index])

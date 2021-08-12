@@ -58,6 +58,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const punk: any = await punksDb(db).findOne({ id: params.pid }) || {}
+  await db.dispose()
   const data = await generateMetadata(punk)
 
   return {
