@@ -25,10 +25,9 @@ const MyPunks: React.FC = () => {
     <div className="flex flex-wrap justify-center space-x-5">
       {punks.length > 0 && tokenIds.map((_, index) => {
         const punk: any = punks[index]
-        return <div className="flex flex-col items-center justify-center">
+        return <div key={punk.id} className="flex flex-col items-center justify-center">
           <PunkCard
             {...punk}
-            key={punk.id}
             shareMessage={`Just got my SNES Punk #${punk.id + 1}!`} />
         </div>
       })}
