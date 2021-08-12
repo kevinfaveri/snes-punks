@@ -37,8 +37,8 @@ const MyPunks: React.FC = () => {
     }
 
     {
-      tokenIds.length === 0 && isEndReached &&
-      <div className="text-white font-bold text-sm mt-5">
+      tokenIds.length === 0 &&
+      <div className="text-white font-bold text-sm mt-5 pl-2">
         You do not own any SNES punks yet :(
       </div>
     }
