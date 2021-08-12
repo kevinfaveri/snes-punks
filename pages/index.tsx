@@ -10,7 +10,7 @@ export default function Home() {
       <PunkImage {...punk} />
 
       <div className="container px-1 text-center">
-        The SNES (16-Bits) Punks are conversions of the 10000 original punks inspired by 16-Bits art style by an AI.
+        The SNES (16-Bits) Punks are conversions of the 10000 original punks by an AI specialist in 16-Bits art style.
       </div>
 
       <div className="container px-1 text-center">
