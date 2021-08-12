@@ -5,6 +5,10 @@ import PunkCard from '@/components/punk-card';
 import { useRouter } from 'next/router'
 import { useState } from 'react';
 import { NextSeo } from 'next-seo';
+import {
+  TelegramShareButton,
+  TwitterShareButton,
+} from "react-share";
 
 const PunkDetails: React.FC<any> = ({ punk }) => {
   const [isFirstAccess, setIsFirstAccess] = useState(true)
@@ -47,8 +51,21 @@ const PunkDetails: React.FC<any> = ({ punk }) => {
         ◄
       </button>}
     </div>
-    <div className="col-span-2 flex justify-center">
+    <div className="col-span-2 flex flex-col items-center justify-center">
       <PunkCard {...punk} />
+      <TwitterShareButton
+        url={`https://snespunks.com/gallery/${punk.id}`}
+        title={`I want my SNES Punk #${punk.id}!`}
+        via="SNESPunks"
+        hashtags={['SNESPUNKS', 'NFT', 'CRYPTOPUNKS', 'ETHEREUM']}
+        related={['SNESPunks', 'kevinfaveri_']}>
+        <span className="text-xs text-blue-300">SHARE ON TWITTER</span>
+      </TwitterShareButton>
+      <TelegramShareButton
+        url={`https://snespunks.com/gallery/${punk.id}`}
+        title={`I want my SNES Punk #${punk.id}!`}>
+        <span className="text-xs text-blue-300">SHARE ON TELEGRAM</span>
+      </TelegramShareButton>
     </div>
     <div className="col-span-1">
       {pidNumber !== 9999 && <button
@@ -65,6 +82,7 @@ const PunkDetails: React.FC<any> = ({ punk }) => {
       className="absolute top-20 left-5 font-bold text-white text-xs">
       TIP: You can edit the number in the URL replacing it in the range of the 10000 SNES 16-Bits Punks (0-9999)
     </div>}
+
 
   </div>;
 }

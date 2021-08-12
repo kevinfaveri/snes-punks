@@ -1,10 +1,12 @@
 import PunkCard from '@/components/punk-card';
-import PunkImage from '@/components/punk-image';
 import { getBalance } from '@/utils/web3';
 import usePunks from 'hooks/usePunks';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
-
+import {
+  TelegramShareButton,
+  TwitterShareButton,
+} from "react-share";
 
 const MyPunks: React.FC = () => {
   const [tokenIds, setTokenIds] = useState<number[]>([])
@@ -22,10 +24,25 @@ const MyPunks: React.FC = () => {
     <Head>
       <title>SNES Punks - My Punks</title>
     </Head>
-    <div>
+    <div className="flex">
       {punks.length > 0 && tokenIds.map((_, index) => {
         const punk: any = punks[index]
-        return <PunkCard {...punk} key={punk.id} />
+        return <div className="flex flex-col items-center justify-center">
+          <PunkCard {...punk} key={punk.id} />
+          <TwitterShareButton
+            url={`https://snespunks.com/gallery/${punk.id}`}
+            title={`Just got my SNES Punk #${punk.id}!`}
+            via="SNESPunks"
+            hashtags={['SNESPUNKS', 'NFT', 'CRYPTOPUNKS', 'ETHEREUM']}
+            related={['SNESPunks', 'kevinfaveri_']}>
+            <span className="text-xs text-blue-300">SHARE ON TWITTER</span>
+          </TwitterShareButton>
+          <TelegramShareButton
+            url={`https://snespunks.com/gallery/${punk.id}`}
+            title={`Just got my SNES Punk #${punk.id}!`}>
+            <span className="text-xs text-blue-300">SHARE ON TELEGRAM</span>
+          </TelegramShareButton>
+        </div>
       })}
 
     </div>
