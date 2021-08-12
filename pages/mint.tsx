@@ -72,7 +72,14 @@ export default function Mint() {
           alt="ETH Loading" />
         {isLoading ?
           <span>{isLoading}</span> :
-          <button onClick={mintToken} className="hover:underline">Mint SNES Punk</button>}
+          <div className="flex flex-col space-y-5">
+            <button
+              onClick={mintToken}
+              className="hover:underline">
+              Mint SNES Punk (0.02 ETH)
+            </button>
+            {!window?.ethereum && <span>You need Metamask installed for this to work!</span>}
+          </div>}
 
         {transactionStack.map((transaction) =>
           <a
