@@ -1,13 +1,36 @@
 import Head from 'next/head';
 import React from 'react';
 import { useRouter } from 'next/router'
+import { NextSeo } from 'next-seo';
 
 const Header: React.FC = () => {
   const router = useRouter()
 
   return <header>
+    <NextSeo
+      title="SNES Punks"
+      description="The SNES (16-Bits) Punks are conversions of the 10000 original punks inspired by 16-Bits art style by an AI."
+      openGraph={{
+        url: "https://snespunks.com",
+        title: 'SNES Punks',
+        description: "The SNES (16-Bits) Punks are conversions of the 10000 original punks inspired by 16-Bits art style by an AI.",
+        images: [
+          {
+            url: "https://snespunks.com/favicon.png",
+            width: 350,
+            height: 350,
+            alt: 'SNES Punks',
+          },
+        ],
+        site_name: 'SNES Punks',
+      }}
+      twitter={{
+        handle: '@SNESPunks',
+        site: 'https://snespunks.com/',
+        cardType: "SNES Punks",
+      }}
+    />
     <Head>
-      <title>SNES Punks</title>
       <link rel="icon" type="image/png" href="/favicon.png" />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" />
