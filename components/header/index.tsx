@@ -27,7 +27,7 @@ const Header: React.FC = () => {
       twitter={{
         handle: '@SNESPunks',
         site: 'https://snespunks.com/',
-        cardType: "SNES Punks",
+        cardType: "summary_large_image",
       }}
     />
     <Head>
