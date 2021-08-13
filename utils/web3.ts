@@ -5,7 +5,7 @@ const snesPunksAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || ''
 export async function switchEthereumChain(ethereum) {
   return await ethereum.request({
     method: "wallet_switchEthereumChain",
-    params: [{ chainId: '0x4' }],
+    params: [{ chainId: '0x1' }],
   });
 }
 
