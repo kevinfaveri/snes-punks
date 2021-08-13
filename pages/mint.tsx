@@ -21,7 +21,7 @@ export default function Mint() {
   const [transactionStack, setTransactionStack] = useLocalStorage('pendingTransactions', [])
 
   useEffect(() => {
-    if (typeof window.ethereum !== 'undefined') {
+    if (typeof window.ethereum !== 'undefined' && Number(window.ethereum.networkVersion) === 1) {
       transactionStack.forEach((transaction) => {
         getTransaction(window.ethereum, transaction).then(() => {
           const item = localStorage ? localStorage.getItem('pendingTransactions') : null;
