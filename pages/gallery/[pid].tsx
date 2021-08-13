@@ -4,6 +4,8 @@ import generateMetadata from 'utils/generate-metadata';
 import PunkCard from '@/components/punk-card';
 import { useRouter } from 'next/router'
 import { NextSeo } from 'next-seo';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 const PunkDetails: React.FC<any> = ({ punk }) => {
   const router = useRouter()
@@ -40,8 +42,8 @@ const PunkDetails: React.FC<any> = ({ punk }) => {
         onClick={() => {
           router.push(`/gallery/${pidNumber - 1}`)
         }}
-        className="nes-btn is-primary uppercase text-2xl">
-        ◄
+        className="nes-btn is-primary h-10 w-10">
+        <FontAwesomeIcon icon={faChevronLeft} />
       </button>}
     </div>
     <div className="col-span-2 flex flex-col items-center justify-center">
@@ -50,11 +52,11 @@ const PunkDetails: React.FC<any> = ({ punk }) => {
     <div className="col-span-1">
       {pidNumber !== 9999 && <button
         type="button"
-        className="nes-btn is-primary uppercase text-sm"
+        className="nes-btn is-primary h-10 w-10"
         onClick={() => {
           router.push(`/gallery/${pidNumber + 1}`)
         }}>
-        ►
+        <FontAwesomeIcon icon={faChevronRight} />
       </button>}
     </div>
   </div>;

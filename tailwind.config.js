@@ -5,6 +5,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        "nftbg-lighter": '#85a0ad',
         nftbg: '#648596'
       },
       fontSize: {

@@ -38,20 +38,24 @@ const PunkCard: React.FC = (punk: any) => {
     />
 
     <div className="flex flex-col justify-center space-y-3 p-3 
-    font-bold bg-gray-200 rounded-md shadow-md text-xs text-nftbg">
-      <span className="text-center">{punk.name}</span>
+    font-bold bg-gray-100 opacity-70 rounded-sm text-xs text-nftbg">
+      <span className="text-center uppercase">{punk.name}</span>
       <TwitterShareButton
         url={`https://snespunks.com/gallery/${punk.id}`}
         title={punk.shareMessage || `I want my SNES Punk #${punk.id + 1}!`}
         via="SNESPunks"
         hashtags={['SNESPUNKS', 'NFT', 'CRYPTOPUNKS', 'ETHEREUM']}
         related={['SNESPunks', 'kevinfaveri_']}>
-        <span className="text-xss md:text-xs text-blue-300">SHARE ON TWITTER</span>
+        <span className="text-xss md:text-xs text-blue-300 hover:text-blue-400">
+          SHARE ON TWITTER
+        </span>
       </TwitterShareButton>
       <TelegramShareButton
         url={`https://snespunks.com/gallery/${punk.id}`}
         title={punk.shareMessage || `I want my SNES Punk #${punk.id}!`}>
-        <span className="text-xss md:text-xs text-blue-300">SHARE ON TELEGRAM</span>
+        <span className="text-xss md:text-xs text-blue-300 hover:text-blue-400">
+          SHARE ON TELEGRAM
+        </span>
       </TelegramShareButton>
     </div>
   </div>;

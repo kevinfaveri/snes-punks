@@ -43,7 +43,7 @@ const Header: React.FC = () => {
       <li className="mr-6">
         <button
           type="button"
-          className="flex px-2 rounded-lg transition hover:underline"
+          className="flex px-2 rounded-lg transition hover:text-nftbg-lighter"
           onClick={() => router.push('/')}>
           <img src="/favicon.png" className="h-10" />
           <div className="h-10 flex items-center">Home</div>
@@ -52,7 +52,7 @@ const Header: React.FC = () => {
       <li className="mr-6">
         <button
           type="button"
-          className="flex px-2 rounded-lg transition hover:underline"
+          className="flex px-2 rounded-lg transition hover:text-nftbg-lighter"
           onClick={() => router.push('/gallery')}>
           <img src="/first_nft.png" className="h-10" />
           <div className="h-10 flex items-center">Gallery</div>
@@ -61,7 +61,7 @@ const Header: React.FC = () => {
       <li className="mr-6">
         <button
           type="button"
-          className="flex px-2 rounded-lg transition hover:underline"
+          className="flex px-2 rounded-lg transition hover:text-nftbg-lighter"
           onClick={() => router.push('/mint')}>
           <img src="/monkey_nft.png" className="h-10" />
           <div className="h-10 flex items-center">Mint</div>
@@ -70,7 +70,7 @@ const Header: React.FC = () => {
       <li>
         <button
           type="button"
-          className="flex px-2 rounded-lg transition hover:underline"
+          className="flex px-2 rounded-lg transition hover:text-nftbg-lighter"
           onClick={() => router.push('/my-punks')}>
           <img src="/alien_nft.png" className="h-10" />
           <div className="h-10 flex items-center">My Punks</div>

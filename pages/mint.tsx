@@ -82,7 +82,7 @@ export default function Mint() {
           <div className="flex flex-col space-y-5">
             <button
               onClick={mintToken}
-              className="hover:underline">
+              className="hover:text-gray-200">
               Mint SNES Punk (0.02 ETH)
             </button>
             {process.browser && !window?.ethereum && <span>You need Metamask installed for this to work!</span>}
