@@ -14,8 +14,9 @@ const toastMinted = (id) => toast.success(
   </Link>, {
   id,
   duration: 10000,
-  position: 'bottom-center'
+  position: 'bottom-right'
 })
+
 export default function Mint() {
   const [transactionStack, setTransactionStack] = useLocalStorage('pendingTransactions', [])
 
@@ -37,14 +38,15 @@ export default function Mint() {
   const [isLoading, setIsLoading] = useState<string | null>(null)
 
   async function mintToken() {
-    if (typeof window.ethereum !== 'undefined') {
+    if (typeof window.ethereum !== 'undefined'
+      && Number(window.ethereum.networkVersion) === 1) {
       try {
         setIsLoading('Minting, check the request on your wallet...')
         await requestAccount(window.ethereum)
         const transaction = await mintPunk(window.ethereum)
         setTransactionStack([transaction.hash, ...transactionStack])
         setIsLoading('Your token is being minted, please wait!')
-        const result = await transaction.wait()
+        await transaction.wait()
         toastMinted(transaction.hash)
         setTransactionStack(transactionStack.filter((transaction) => transaction !== transaction.hash))
         setIsLoading(null)
@@ -54,6 +56,11 @@ export default function Mint() {
         }
         setIsLoading(null)
       }
+    } else {
+      toast.error('Invalid network, please switch back to mainnet', {
+        duration: 10000,
+        position: 'bottom-right'
+      })
     }
   }
 
