@@ -3,7 +3,8 @@ import { db, punksDb } from "utils/pool"
 import { greaterThan, anyOf } from '@databases/pg-typed';
 
 export default async function getPunks(req: any, res: any) {
-  const { ids = [], cursor } = req.query
+  let { ids = [], cursor } = req.query
+  ids = Array.isArray(ids) ? ids : [ids]
   ids.forEach((_, index) => {
     ids[index] = Number(ids[index])
   });
