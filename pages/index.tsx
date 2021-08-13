@@ -1,5 +1,6 @@
 import PunkImage from "@/components/punk-image"
 import useSWR from "swr"
+import Link from 'next/link'
 
 const randomPunkId = Math.floor(Math.random() * (9999 - 0 + 1)) + 0
 export default function Home() {
@@ -8,6 +9,23 @@ export default function Home() {
   return (
     <div className="flex flex-col justify-center text-xs items-center py-3 text-white space-y-16">
       <PunkImage {...punk} />
+
+      <div>
+        <a
+          href="https://opensea.io/collection/snespunks"
+          target="_blank"
+          className="text-blue-200 hover:text-blue-300">
+          TRADE ON OPEN SEA
+        </a>
+
+        <span> OR </span>
+        <Link href="/mint">
+          <a className="text-blue-200 hover:text-blue-300 uppercase 
+      hover:underline">
+            MINT YOUR OWN
+          </a>
+        </Link>
+      </div>
 
       <div className="container px-1 text-center">
         The SNES (16-Bits) Punks are conversions of the 10000 original punks by an AI specialist in 16-Bits art style.
@@ -21,7 +39,7 @@ export default function Home() {
         This project is inspired by the 90's videogames generation, a parody of the OG CryptoPunks and is NOT affiliated with Larva Labs.
       </div>
 
-      <div className="flex justify-center space-x-5 pb-5">
+      <div className="flex justify-center space-x-5 pb-5 items-center">
         <a href="https://twitter.com/SNESPunks" target="_blank"><i className="nes-icon twitter is-large cursor-pointer inline-block" /></a>
         <a href="https://discord.gg/GA6kE84Ax2" target="_blank"><img src='/discord.png' className="cursor-pointer inline-block" width={64} height={64} /></a>
       </div>
