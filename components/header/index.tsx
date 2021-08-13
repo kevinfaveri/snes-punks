@@ -9,11 +9,11 @@ const Header: React.FC = () => {
   return <header className="flex justify-center">
     <NextSeo
       title="SNES Punks"
-      description="The SNES (16-Bits) Punks are conversions of the 10000 original punks inspired by 16-Bits art style by an AI."
+      description="The SNES Punks are conversions of the 10000 original punks to 16-Bits art style made by an AI."
       openGraph={{
         url: "https://snespunks.com",
         title: 'SNES Punks',
-        description: "The SNES (16-Bits) Punks are conversions of the 10000 original punks inspired by 16-Bits art style by an AI.",
+        description: "The SNES Punks are conversions of the 10000 original punks to 16-Bits art style made by an AI.",
         images: [
           {
             url: "https://snespunks.com/favicon.png",
