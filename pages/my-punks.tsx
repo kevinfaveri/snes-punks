@@ -1,19 +1,24 @@
 import PunkCard from '@/components/punk-card';
 import { getBalance } from '@/utils/web3';
-import usePunks from 'hooks/usePunks';
+import toast from 'react-hot-toast';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
 
 const MyPunks: React.FC = () => {
   const [tokenIds, setTokenIds] = useState<number[]>([])
-  const { data } = useSWR(`/api/punks?${tokenIds.map((id) => `ids=${id}&`).join('')}`)
+  const { data, isValidating } = useSWR(tokenIds.length ? `/api/punks?${tokenIds.map((id) => `ids=${id}&`).join('')}` : null)
   const punks = data?.data || []
 
   useEffect(() => {
-    if (typeof window.ethereum !== 'undefined') {
+    if (typeof window.ethereum !== 'undefined' && Number(window.ethereum.networkVersion) === 1) {
       getBalance(window.ethereum).then((tokenIds) => {
         setTokenIds(tokenIds)
+      })
+    } else {
+      toast.error('Invalid network, please switch back to mainnet', {
+        duration: 10000,
+        position: 'bottom-right'
       })
     }
   }, [])
@@ -34,14 +39,14 @@ const MyPunks: React.FC = () => {
 
     </div>
     {
-      !data &&
+      isValidating &&
       <div className="text-white font-bold text-sm mt-5 text-center animate-pulse">
         Loading punks...
       </div>
     }
 
     {
-      data && punks.length === 0 && tokenIds.length === 0 &&
+      punks.length === 0 && tokenIds.length === 0 &&
       <div className="text-white font-bold text-sm mt-5 pl-2 text-center">
         You do not own any SNES punks yet :(
       </div>
