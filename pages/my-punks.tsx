@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import Head from 'next/head';
 import React, { useLayoutEffect, useState } from 'react';
 import useSWR from 'swr';
-import useInterval from 'hooks/useInterval';
+import useInterval from 'hooks/use-interval';
 
 const getTokenIds = (setTokenIds) => {
   if (typeof window.ethereum !== 'undefined'

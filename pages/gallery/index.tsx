@@ -1,5 +1,5 @@
 import PunkImage from '@/components/punk-image';
-import usePunks from 'hooks/usePunks';
+import usePunks from 'hooks/use-punks';
 import Head from 'next/head';
 import React from 'react';
 

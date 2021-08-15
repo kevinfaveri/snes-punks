@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { requestAccount, mintPunk, getTransaction } from '@/utils/web3'
 import toast from 'react-hot-toast';
 import Link from 'next/link'
-import { useLocalStorage } from 'hooks/useLocalStorage';
+import { useLocalStorage } from 'hooks/use-local-storage';
 
 const toastMinted = (id) => toast.success(
   <Link href="/my-punks">

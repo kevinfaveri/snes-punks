@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import useInfinitePagination from './useInfinitePagination'
-import useOnScreen from './useOnScreen'
+import useInfinitePagination from './use-infinite-pagination'
+import useOnScreen from './use-on-screen'
 
 const getKey = (ids) => (pageIndex, previousPageData) => {
   new URLSearchParams(ids).toString()
