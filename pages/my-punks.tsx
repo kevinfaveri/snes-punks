@@ -2,28 +2,35 @@ import PunkCard from '@/components/punk-card';
 import { getBalance } from '@/utils/web3';
 import toast from 'react-hot-toast';
 import Head from 'next/head';
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import useSWR from 'swr';
 import useInterval from 'hooks/useInterval';
 
+const getTokenIds = (setTokenIds) => {
+  if (typeof window.ethereum !== 'undefined'
+    && Number(window.ethereum.networkVersion) === 1) {
+    console.info('GETTING BALANCE...')
+    getBalance(window.ethereum).then((balanceTokenIds) => {
+      setTokenIds(balanceTokenIds)
+    })
+  } else {
+    toast.error('Invalid network, please switch back to mainnet', {
+      duration: 10000,
+      position: 'bottom-right'
+    })
+  }
+}
 const MyPunks: React.FC = () => {
   const [tokenIds, setTokenIds] = useState<number[] | null>(null)
   const { data, isValidating } = useSWR(tokenIds?.length ? `/api/punks?${tokenIds.map((id) => `ids=${id}&`).join('')}` : null)
   const punks = data?.data || []
 
+  useLayoutEffect(() => {
+    getTokenIds(setTokenIds)
+  }, [])
+
   useInterval(() => {
-    if (typeof window.ethereum !== 'undefined'
-      && Number(window.ethereum.networkVersion) === 1) {
-      console.info('GETTING BALANCE...')
-      getBalance(window.ethereum).then((balanceTokenIds) => {
-        setTokenIds(balanceTokenIds)
-      })
-    } else {
-      toast.error('Invalid network, please switch back to mainnet', {
-        duration: 10000,
-        position: 'bottom-right'
-      })
-    }
+    getTokenIds(setTokenIds)
   }, 15000)
 
   return <>
@@ -42,7 +49,7 @@ const MyPunks: React.FC = () => {
 
     </div>
     {
-      tokenIds === null && isValidating &&
+      tokenIds === null &&
       <div className="text-white font-bold text-sm mt-5 text-center animate-pulse">
         Loading punks...
       </div>
