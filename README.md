@@ -1,6 +1,6 @@
 # SNESPunks
 
-This is an example fullstack ethereum app using NextJS + Tailwind + nes.css as front/back techstack. It is integrated with Metamask for supporting web3 in the frontend; The contract has been written and deployed using HardHat and the ERC712, ERC721Enumerable and Ownable openzeppelin interfaces.
+This is an example fullstack ethereum app using NextJS + Tailwind + nes.css as front/back techstack. It is integrated with Metamask for supporting web3 in the frontend; The contract has been written and deployed using HardHat and the ERC712, ERC721Enumerable, Ownable and Counters OpenZeppelin interfaces. Ownable is used so OpenSea can get access to the getOwner function but it could have been implemented too if you do not wish to extends on the interface.
 
 ## Support the project
 
