@@ -4,16 +4,19 @@ import toast from 'react-hot-toast';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
+import useInterval from 'hooks/useInterval';
 
 const MyPunks: React.FC = () => {
-  const [tokenIds, setTokenIds] = useState<number[]>([])
-  const { data, isValidating } = useSWR(tokenIds.length ? `/api/punks?${tokenIds.map((id) => `ids=${id}&`).join('')}` : null)
+  const [tokenIds, setTokenIds] = useState<number[] | null>(null)
+  const { data, isValidating } = useSWR(tokenIds?.length ? `/api/punks?${tokenIds.map((id) => `ids=${id}&`).join('')}` : null)
   const punks = data?.data || []
 
-  useEffect(() => {
-    if (typeof window.ethereum !== 'undefined' && Number(window.ethereum.networkVersion) === 1) {
-      getBalance(window.ethereum).then((tokenIds) => {
-        setTokenIds(tokenIds)
+  useInterval(() => {
+    if (typeof window.ethereum !== 'undefined'
+      && Number(window.ethereum.networkVersion) === 1) {
+      console.info('GETTING BALANCE...')
+      getBalance(window.ethereum).then((balanceTokenIds) => {
+        setTokenIds(balanceTokenIds)
       })
     } else {
       toast.error('Invalid network, please switch back to mainnet', {
@@ -21,14 +24,14 @@ const MyPunks: React.FC = () => {
         position: 'bottom-right'
       })
     }
-  }, [])
+  }, 15000)
 
   return <>
     <Head>
       <title>SNES Punks - My Punks</title>
     </Head>
     <div className="flex flex-wrap justify-center space-x-5">
-      {punks.length > 0 && tokenIds.map((_, index) => {
+      {punks.length > 0 && tokenIds?.map((_, index) => {
         const punk: any = punks[index]
         return <div key={punk.id} className="flex flex-col items-center justify-center">
           <PunkCard
@@ -39,14 +42,14 @@ const MyPunks: React.FC = () => {
 
     </div>
     {
-      isValidating &&
+      tokenIds === null && isValidating &&
       <div className="text-white font-bold text-sm mt-5 text-center animate-pulse">
         Loading punks...
       </div>
     }
 
     {
-      punks.length === 0 && tokenIds.length === 0 &&
+      punks.length === 0 && tokenIds?.length === 0 &&
       <div className="text-white font-bold text-sm mt-5 pl-2 text-center">
         You do not own any SNES punks yet :(
       </div>
