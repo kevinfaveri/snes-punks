@@ -23,6 +23,6 @@ My plan is to work on even more elaborated blockchain fullstack apps as I study 
 - Gamification in the main website using the tokens
 
 
-### Suggestions for improvements for this repo
+### Suggestions for improvements of this repo
 
 I chose to go simply in this one with a sequential minting so all business rule is on the contract! But a simpler solution if you want to randomize, or even generate things on the fly (like, they don't use a similar artwork [in this case CryptoPunks] as a base), you can always use Ethereum APIs, be it etherscan, Infura or Alchemy (or any other provider of nodes that gives you APIs to play with) for listening for transactions and minting random NFT's. Another option might be to integrate with something like Chainlink Oracles for dynamic NFT's.
