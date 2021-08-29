@@ -61,7 +61,7 @@ const getWeb3: (type: string | null) => Promise<Web3Info | null> = (type) => {
     } else if (type === 'injected') {
       const providerValue = WALLET_PROVIDER_VALUES[type]
       await switchEthereumChain(providerValue)
-      await requestAccount(providerValue).catch((error) => {
+      await requestAccount(providerValue).catch((error: any) => {
         if (error.code !== -32002) {
           reject('User rejected the app connection request!')
           return

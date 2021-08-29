@@ -51,7 +51,7 @@ export default function Mint() {
         toastMinted(transaction.hash)
         setTransactionStack(transactionStack.filter((transaction) => transaction !== transaction.hash))
         setIsLoading(null)
-      } catch (error) {
+      } catch (error: any) {
         if (error.code !== 4001) {
           toast.error(error.code)
         }
