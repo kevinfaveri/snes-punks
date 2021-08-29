@@ -55,6 +55,7 @@ const getWeb3: (type: string | null) => Promise<Web3Info | null> = (type) => {
         await source.disconnect()
         reject('You have added an account from a wrong network, please try again!')
       } else {
+        source.qrcodeModal.close()
         resolve({ provider: ethersProvider, source })
       }
     } else if (type === 'injected') {

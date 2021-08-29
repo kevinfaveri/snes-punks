@@ -8,10 +8,11 @@ export default function Layout({ children }) {
     <div className="h-full">
       <Header />
       <main className="pt-20 h-full">
-        {(!typeManager.type || errorManager.error) && <WalletModal 
-        onSelectWallet={typeManager.setType} 
-        error={errorManager.error}
-        isOpen />}
+        {(!typeManager.type || errorManager.error) && <WalletModal
+          activeWalletType={typeManager.type}
+          onSelectWallet={typeManager.setType}
+          error={errorManager.error}
+          isOpen />}
         {children}
       </main>
     </div>
