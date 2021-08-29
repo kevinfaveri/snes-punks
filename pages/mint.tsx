@@ -4,6 +4,7 @@ import { requestAccount, mintPunk, getTransaction } from '@/utils/web3'
 import toast from 'react-hot-toast';
 import Link from 'next/link'
 import { useLocalStorage } from 'hooks/use-local-storage';
+import { useWeb3 } from 'hooks/use-web-3';
 
 const toastMinted = (id) => toast.success(
   <Link href="/my-punks">
@@ -18,12 +19,13 @@ const toastMinted = (id) => toast.success(
 })
 
 export default function Mint() {
+  const { provider, source } = useWeb3()
   const [transactionStack, setTransactionStack] = useLocalStorage('pendingTransactions', [])
 
   useEffect(() => {
-    if (typeof window.ethereum !== 'undefined' && Number(window.ethereum.networkVersion) === 1) {
+    if (typeof source !== 'undefined' && Number(source?.networkVersion) === Number(process.env.NEXT_PUBLIC_CHAINID)) {
       transactionStack.forEach((transaction) => {
-        getTransaction(window.ethereum, transaction).then(() => {
+        getTransaction(provider, transaction).then(() => {
           const item = localStorage ? localStorage.getItem('pendingTransactions') : null;
           const transactionStackUpdated = item ? JSON.parse(item) : [];
           setTransactionStack(transactionStackUpdated.filter((txHash) =>
@@ -32,18 +34,17 @@ export default function Mint() {
         })
       })
     }
-  }, [])
+  }, [source])
 
 
   const [isLoading, setIsLoading] = useState<string | null>(null)
 
   async function mintToken() {
-    if (typeof window.ethereum !== 'undefined'
-      && Number(window.ethereum.networkVersion) === 1) {
+    if (typeof source !== 'undefined'
+      && Number(source.networkVersion) === Number(process.env.NEXT_PUBLIC_CHAINID)) {
       try {
         setIsLoading('Minting, check the request on your wallet...')
-        await requestAccount(window.ethereum)
-        const transaction = await mintPunk(window.ethereum)
+        const transaction = await mintPunk(provider)
         setTransactionStack([transaction.hash, ...transactionStack])
         setIsLoading('Your token is being minted, please wait!')
         await transaction.wait()
@@ -57,7 +58,7 @@ export default function Mint() {
         setIsLoading(null)
       }
     } else {
-      toast.error('Invalid network, please switch back to mainnet', {
+      toast.error(`Invalid network, please switch back to ${Number(process.env.NEXT_PUBLIC_CHAINID) === 1 ? 'mainnet' : 'testnet'}`, {
         duration: 10000,
         position: 'bottom-right'
       })
@@ -85,7 +86,6 @@ export default function Mint() {
               className="hover:text-gray-200">
               Mint SNES Punk (0.02 ETH)
             </button>
-            {process.browser && !window?.ethereum && <span>You need Metamask installed for this to work!</span>}
           </div>}
 
         {transactionStack.map((transaction) =>

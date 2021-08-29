@@ -14,19 +14,17 @@ export async function requestAccount(ethereum) {
   return accounts
 }
 
-export async function mintPunk(ethereum) {
-  const provider = new ethers.providers.Web3Provider(ethereum);
+export async function mintPunk(provider) {
   const signer = provider.getSigner()
   const contract = new ethers.Contract(snesPunksAddress, SNESPunks.abi, signer)
   const transaction = await contract.mintToken({ value: ethers.utils.parseEther("0.02") })
   return transaction
 }
 
-export async function getBalance(ethereum) {
+export async function getBalance(provider, source) {
   const allTokens: number[] = [];
-  const [account] = await ethereum.request({ method: 'eth_requestAccounts' })
-  const provider = new ethers.providers.Web3Provider(ethereum);
   const contract = new ethers.Contract(snesPunksAddress, SNESPunks.abi, provider)
+  const [account] = await source.request({ method: 'eth_requestAccounts' })
   const balance = await contract.balanceOf(account);
   for (var i = 0; i < balance.toNumber(); i++) {
     const token = await contract.tokenOfOwnerByIndex(account, i)
@@ -38,8 +36,7 @@ export async function getBalance(ethereum) {
   return allTokens
 }
 
-export async function getTransaction(ethereum, transactionHash) {
-  const provider = new ethers.providers.Web3Provider(ethereum);
+export async function getTransaction(provider, transactionHash) {
   const transaction = await provider.getTransaction(transactionHash)
   const result = await transaction.wait()
   return result

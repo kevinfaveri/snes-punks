@@ -3,20 +3,15 @@ import "nes.css/css/nes.min.css";
 import "./global.css"
 import Layout from '@/components/layout';
 import { Toaster } from 'react-hot-toast';
-import { requestAccount, switchEthereumChain } from '@/utils/web3';
+import { WalletProvider } from 'hooks/use-web-3';
 
-if (process.browser) {
-  if (window.ethereum !== undefined) {
-    switchEthereumChain(window.ethereum).then(() => {
-      requestAccount(window.ethereum)
-    })
-  }
-}
 function MyApp({ Component, pageProps }: any) {
-  return <Layout>
-    <Component {...pageProps} />
-    <Toaster />
-  </Layout>
+  return <WalletProvider initialType={null}>
+    <Layout>
+      <Component {...pageProps} />
+      <Toaster />
+    </Layout>
+  </WalletProvider>
 }
 
 export default MyApp

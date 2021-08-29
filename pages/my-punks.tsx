@@ -5,32 +5,34 @@ import Head from 'next/head';
 import React, { useLayoutEffect, useState } from 'react';
 import useSWR from 'swr';
 import useInterval from 'hooks/use-interval';
+import { useWeb3 } from 'hooks/use-web-3';
 
-const getTokenIds = (setTokenIds) => {
-  if (typeof window.ethereum !== 'undefined'
-    && Number(window.ethereum.networkVersion) === 1) {
+const getTokenIds = (setTokenIds, { provider, source }) => {
+  if (typeof source !== 'undefined'
+    && Number(source.networkVersion) === Number(process.env.NEXT_PUBLIC_CHAINID)) {
     console.info('GETTING BALANCE...')
-    getBalance(window.ethereum).then((balanceTokenIds) => {
+    getBalance(provider, source).then((balanceTokenIds) => {
       setTokenIds(balanceTokenIds)
     })
   } else {
-    toast.error('Invalid network, please switch back to mainnet', {
+    toast.error(`Invalid network, please switch back to ${Number(process.env.NEXT_PUBLIC_CHAINID) === 1 ? 'mainnet' : 'testnet'}`, {
       duration: 10000,
       position: 'bottom-right'
     })
   }
 }
 const MyPunks: React.FC = () => {
+  const web3Info = useWeb3()
   const [tokenIds, setTokenIds] = useState<number[] | null>(null)
   const { data, isValidating } = useSWR(tokenIds?.length ? `/api/punks?${tokenIds.map((id) => `ids=${id}&`).join('')}` : null)
   const punks = data?.data || []
 
   useLayoutEffect(() => {
-    getTokenIds(setTokenIds)
-  }, [])
+    if (web3Info.source) getTokenIds(setTokenIds, web3Info)
+  }, [web3Info])
 
   useInterval(() => {
-    getTokenIds(setTokenIds)
+    getTokenIds(setTokenIds, web3Info)
   }, 15000)
 
   return <>
