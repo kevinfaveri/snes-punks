@@ -36,26 +36,35 @@ const getWeb3: (type: string | null) => Promise<Web3Info | null> = (type) => {
       const providerValue = WALLET_PROVIDER_VALUES[type]
       const source = new WalletConnectProvider({
         infuraId: providerValue,
-        qrcode: true
+        qrcode: true,
+        chainId: Number(process.env.NEXT_PUBLIC_CHAINID),
+        rpc: {
+          1: "https://mainnet.infura.io/v3/055a0d947f5042e4bc5f3ce8d588b8ee",
+          4: "https://rinkeby.infura.io/v3/055a0d947f5042e4bc5f3ce8d588b8ee",
+        }
       });
-      console.log('enabling')
       try {
         await source.enable()
       } catch (error) {
         reject('You have closed the modal so we could not connect to your wallet!')
         return
       }
-      console.log('ENABLED')
-      await switchEthereumChain(source)
-      await requestAccount(source)
       const ethersProvider = new ethers.providers.Web3Provider(source);
-      resolve({ provider: ethersProvider, source })
+      if (source.chainId !== Number(process.env.NEXT_PUBLIC_CHAINID)) {
+        source.qrcodeModal.close()
+        await source.disconnect()
+        reject('You have added an account from a wrong network, please try again!')
+      } else {
+        resolve({ provider: ethersProvider, source })
+      }
     } else if (type === 'injected') {
       const providerValue = WALLET_PROVIDER_VALUES[type]
       await switchEthereumChain(providerValue)
-      await requestAccount(providerValue).catch(() => {
-        reject('User rejected the app connection request!')
-        return
+      await requestAccount(providerValue).catch((error) => {
+        if (error.code !== -32002) {
+          reject('User rejected the app connection request!')
+          return
+        }
       })
       const ethersProvider = new ethers.providers.Web3Provider(providerValue as any);
       resolve({ provider: ethersProvider, source: providerValue })
@@ -94,6 +103,7 @@ export function useWeb3() {
   useEffect(() => {
     if (typeManager.type) {
       getWeb3(typeManager.type).then(web3InfoFromProvider => {
+        errorManager.setError(null)
         setWeb3Info({ ...web3Info, ...web3InfoFromProvider });
       }).catch((error) => {
         typeManager.setType(null)

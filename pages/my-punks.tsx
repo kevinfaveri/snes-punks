@@ -2,16 +2,17 @@ import PunkCard from '@/components/punk-card';
 import { getBalance } from '@/utils/web3';
 import toast from 'react-hot-toast';
 import Head from 'next/head';
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import useInterval from 'hooks/use-interval';
 import { useWeb3 } from 'hooks/use-web-3';
 
 const getTokenIds = (setTokenIds, { provider, source }) => {
-  if (typeof source !== 'undefined'
-    && Number(source.networkVersion) === Number(process.env.NEXT_PUBLIC_CHAINID)) {
+  const chainId = provider?._network?.chainId || source.chainId
+  if (provider !== null
+    && Number(chainId) === Number(process.env.NEXT_PUBLIC_CHAINID)) {
     console.info('GETTING BALANCE...')
-    getBalance(provider, source).then((balanceTokenIds) => {
+    getBalance(provider).then((balanceTokenIds) => {
       setTokenIds(balanceTokenIds)
     })
   } else {
@@ -24,10 +25,10 @@ const getTokenIds = (setTokenIds, { provider, source }) => {
 const MyPunks: React.FC = () => {
   const web3Info = useWeb3()
   const [tokenIds, setTokenIds] = useState<number[] | null>(null)
-  const { data, isValidating } = useSWR(tokenIds?.length ? `/api/punks?${tokenIds.map((id) => `ids=${id}&`).join('')}` : null)
+  const { data } = useSWR(tokenIds?.length ? `/api/punks?${tokenIds.map((id) => `ids=${id}&`).join('')}` : null)
   const punks = data?.data || []
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (web3Info.source) getTokenIds(setTokenIds, web3Info)
   }, [web3Info])
 

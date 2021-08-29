@@ -21,11 +21,12 @@ export async function mintPunk(provider) {
   return transaction
 }
 
-export async function getBalance(provider, source) {
+export async function getBalance(provider) {
   const allTokens: number[] = [];
   const contract = new ethers.Contract(snesPunksAddress, SNESPunks.abi, provider)
-  const [account] = await source.request({ method: 'eth_requestAccounts' })
+  const [account] = await provider.listAccounts()
   const balance = await contract.balanceOf(account);
+
   for (var i = 0; i < balance.toNumber(); i++) {
     const token = await contract.tokenOfOwnerByIndex(account, i)
     const tokenId = token.toNumber()

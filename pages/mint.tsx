@@ -23,7 +23,7 @@ export default function Mint() {
   const [transactionStack, setTransactionStack] = useLocalStorage('pendingTransactions', [])
 
   useEffect(() => {
-    if (typeof source !== 'undefined' && Number(source?.networkVersion) === Number(process.env.NEXT_PUBLIC_CHAINID)) {
+    if (provider !== null && Number(provider?.network?.chainId) === Number(process.env.NEXT_PUBLIC_CHAINID)) {
       transactionStack.forEach((transaction) => {
         getTransaction(provider, transaction).then(() => {
           const item = localStorage ? localStorage.getItem('pendingTransactions') : null;
@@ -40,8 +40,8 @@ export default function Mint() {
   const [isLoading, setIsLoading] = useState<string | null>(null)
 
   async function mintToken() {
-    if (typeof source !== 'undefined'
-      && Number(source.networkVersion) === Number(process.env.NEXT_PUBLIC_CHAINID)) {
+    if (provider !== null
+      && Number(provider?.network?.chainId) === Number(process.env.NEXT_PUBLIC_CHAINID)) {
       try {
         setIsLoading('Minting, check the request on your wallet...')
         const transaction = await mintPunk(provider)
