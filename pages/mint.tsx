@@ -92,7 +92,8 @@ export default function Mint() {
           <a
             key={transaction}
             href={`${process.env.NEXT_PUBLIC_ETHERSCAN_BASE_URL}${transaction}`}
-            target="_blank" className="text-blue-300 text-sm hover:text-blue-300 
+            target="_blank" 
+            rel="noreferrer" className="text-blue-300 text-sm hover:text-blue-300 
               hover:underline block">
             [PENDING TRANSACTION] Click here for details!
           </a>

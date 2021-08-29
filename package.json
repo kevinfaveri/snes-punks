@@ -3,6 +3,7 @@
   "description": "SNES inspired 16-bits version of the normal 8-bit Crypto Punks.",
   "private": true,
   "scripts": {
+    "lint": "next lint",
     "dev": "next dev",
     "build": "npx hardhat compile && next build",
     "start": "next start",
@@ -44,6 +45,8 @@
     "autoprefixer": "^10.3.1",
     "dotenv": "^10.0.0",
     "dotenv-cli": "^4.0.0",
+    "eslint": "7.32.0",
+    "eslint-config-next": "11.1.0",
     "ethereum-waffle": "^3.4.0",
     "hardhat": "^2.6.0",
     "postcss": "^8.3.6",

@@ -18,7 +18,6 @@ My plan is to work on even more elaborated blockchain fullstack apps as I study 
 
 ## Roadmap
 
-- Eslint support
 - Tests for contract
 - SNESPunks Twitter bot integrated with OpenSea + Infura API
 - Gamification in the main website using the tokens

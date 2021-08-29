@@ -14,7 +14,7 @@ export default function Home() {
         <a
           href="https://opensea.io/collection/snespunks"
           target="_blank"
-          className="text-blue-200 hover:text-blue-300 hover:no-underline">
+          className="text-blue-200 hover:text-blue-300 hover:no-underline" rel="noreferrer">
           TRADE ON OPEN SEA
         </a>
 
@@ -27,8 +27,8 @@ export default function Home() {
       </div>
 
       <div className="flex justify-center space-x-5 pb-5 items-center">
-        <a href="https://twitter.com/SNESPunks" target="_blank"><i className="nes-icon twitter is-large cursor-pointer inline-block" /></a>
-        <a href="https://discord.gg/GA6kE84Ax2" target="_blank"><img src='/discord.png' className="cursor-pointer inline-block" width={64} height={64} /></a>
+        <a href="https://twitter.com/SNESPunks" target="_blank" rel="noreferrer"><i className="nes-icon twitter is-large cursor-pointer inline-block" /></a>
+        <a href="https://discord.gg/GA6kE84Ax2" target="_blank" rel="noreferrer"><img src='/discord.png' className="cursor-pointer inline-block" width={64} height={64} /></a>
       </div>
 
       <div className="container px-1 text-center">
