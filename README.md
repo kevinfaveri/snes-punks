@@ -28,3 +28,5 @@ My plan is to work on even more elaborated blockchain fullstack apps as I study 
 ### Suggestions for improvements of this repo
 
 I chose to go simply in this one with a sequential minting so all business rule is on the contract! But a simpler solution if you want to randomize, or even generate things on the fly (like, they don't use a similar artwork [in this case CryptoPunks] as a base), you can always use Ethereum APIs, be it etherscan, Infura or Alchemy (or any other provider of nodes that gives you APIs to play with) for listening for transactions and minting random NFT's. Another option might be to integrate with something like Chainlink Oracles for dynamic NFT's.
+
+This repository does not support setting the tokenURI for something entirely diff, so it will always rely on the snespunks.com domain (even if the SNESPunks resources are stored on IPFS, which *is not a good approach*). If you want to be able to change the tokenURI as you grow, please extend on the `ERC721URIStorage` openzeppelin interface.
