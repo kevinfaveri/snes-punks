@@ -19,7 +19,9 @@ My plan is to work on even more elaborated blockchain fullstack apps as I study 
 ## Roadmap
 
 - Tests for contract
+- IPFS support
 - SNESPunks Twitter bot integrated with OpenSea + Infura API
+- Add Subgraph
 - Gamification in the main website using the tokens
 
 
