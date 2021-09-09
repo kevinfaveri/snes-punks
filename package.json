@@ -12,8 +12,7 @@
     "eth-deploy-local": "npx hardhat run scripts/deploy.js --network localhost",
     "eth-deploy-testnet": "npx hardhat run scripts/deploy.js --network rinkeby",
     "eth-deploy-mainnet": "npx hardhat run scripts/deploy.js --network mainnet",
-    "eth-verify-mainnet": "npx hardhat verify --network rinkeby TESTNET_ADDRESS 'SNES Punks' 'SNESP'",
-    "eth-verify-mainnet": "npx hardhat verify --network mainnet 0x81aF96d134549293Fa7475BDbd7C34618d588a88 'SNES Punks' 'SNESP'" 
+    "eth-verify-mainnet": "npx hardhat verify --network mainnet 0x81aF96d134549293Fa7475BDbd7C34618d588a88 'SNES Punks' 'SNESP'"
   },
   "dependencies": {
     "@databases/pg": "^5.1.0",
