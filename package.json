@@ -11,7 +11,9 @@
     "eth-compile": "npx hardhat compile",
     "eth-deploy-local": "npx hardhat run scripts/deploy.js --network localhost",
     "eth-deploy-testnet": "npx hardhat run scripts/deploy.js --network rinkeby",
-    "eth-deploy-mainnet": "npx hardhat run scripts/deploy.js --network mainnet"
+    "eth-deploy-mainnet": "npx hardhat run scripts/deploy.js --network mainnet",
+    "eth-verify-mainnet": "npx hardhat verify --network rinkeby TESTNET_ADDRESS 'SNES Punks' 'SNESP'",
+    "eth-verify-mainnet": "npx hardhat verify --network mainnet 0x81aF96d134549293Fa7475BDbd7C34618d588a88 'SNES Punks' 'SNESP'" 
   },
   "dependencies": {
     "@databases/pg": "^5.1.0",
@@ -38,6 +40,7 @@
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "@nomiclabs/hardhat-etherscan": "^2.1.6",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
     "@openzeppelin/contracts": "^4.2.0",
     "@types/node": "^16.4.13",
