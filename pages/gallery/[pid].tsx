@@ -1,5 +1,5 @@
 import React from 'react';
-import { db, punksDb } from 'utils/pool';
+import { readCSV } from "utils/read-dataset"
 import generateMetadata from 'utils/generate-metadata';
 import PunkCard from '@/components/punk-card';
 import { useRouter } from 'next/router'
@@ -70,7 +70,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const punk: any = await punksDb(db).findOne({ id: params.pid }) || {}
+  const dataset: any = await readCSV()
+  const punk: any = dataset.find((({id}) => Number(id) === Number(params.pid))) || {}
   const data = await generateMetadata(punk)
 
   return {

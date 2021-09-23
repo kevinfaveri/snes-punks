@@ -1,6 +1,16 @@
 import generateMetadata from "utils/generate-metadata";
-import { db, punksDb } from "utils/pool"
-import { greaterThan, anyOf } from '@databases/pg-typed';
+import { paginator, readCSV } from "utils/read-dataset"
+
+const paginateDataset = async (cursor, limit) =>  {
+  const dataset: any = await readCSV()
+  const foundPunks = paginator(dataset, cursor, limit)
+  return foundPunks
+}
+
+const findById = async (ids) =>  {
+  const dataset: any = await readCSV()
+  return dataset.filter(({id}) => ids.includes(Number(id)))
+}
 
 export default async function getPunks(req: any, res: any) {
   let { ids = [], cursor } = req.query
@@ -9,12 +19,7 @@ export default async function getPunks(req: any, res: any) {
     ids[index] = Number(ids[index])
   });
 
-  const punks: any[] = ids.length === 0 ? await punksDb(db)
-    .find({
-      ...(cursor ? { id: greaterThan(cursor) } : {}),
-    })
-    .orderByAsc(`id`)
-    .limit(500) : await punksDb(db).find({ id: anyOf(ids) }).orderByAsc(`id`).all() as any
+  const punks: any[] = ids.length === 0 ? await paginateDataset(cursor, 500) : await findById(ids)
   const data: any[] = []
   for (let index = 0; index < punks.length; index++) {
     const dataToAdd = await generateMetadata(punks[index])

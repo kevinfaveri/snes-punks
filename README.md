@@ -5,7 +5,6 @@ This is an example fullstack ethereum app using NextJS + Tailwind + nes.css as f
 ## Env Vars
 
 You need to have these environment variables defined for the project to work:
-- DATABASE_CONNECTION_STRING
 - SPACES_API_KEY
 - SPACES_SECRET_KEY
 - CONTRACT_OWNER_PK
